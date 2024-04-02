@@ -38,7 +38,6 @@ public class BookUseCase {
                 throw new BadBookException("Informações incompletas");
             }
            //var bookModel = mapperDTOtoModel(bookRequest);
-
            //return mapperModelToDto(repository.save(bookModel));
 
         var bookModel = bookMapper.bookDtoToModel(bookRequest);
