@@ -50,6 +50,12 @@ public class BookUseCase {
     private boolean bookIsValid(BookRequestDTO book) {
         if(book.getTitle().isEmpty() && book.getTitle().isBlank() && book.getTitle().length() > 100){
             return false;
+        }else if(book.getAuthor().isEmpty() && book.getAuthor().isBlank() && book.getAuthor().length() > 100){
+            return false;
+        }else if(book.getType().isEmpty() && book.getType().isBlank() && book.getType().length() > 100){
+            return false;
+        }else if(book.getCategory().isEmpty() && book.getCategory().isBlank() && book.getCategory().length() > 100){
+            return false;
         }else {
             return true;
         }
