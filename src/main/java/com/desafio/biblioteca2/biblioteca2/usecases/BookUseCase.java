@@ -9,16 +9,12 @@ import org.mapstruct.factory.Mappers;
 import com.desafio.biblioteca2.biblioteca2.frameworks.exceptions.BadBookException;
 import com.desafio.biblioteca2.biblioteca2.frameworks.exceptions.NotFoundException;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Streamable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 @Service
 public class BookUseCase {
