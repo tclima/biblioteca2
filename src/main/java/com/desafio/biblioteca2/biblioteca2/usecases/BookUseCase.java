@@ -44,13 +44,13 @@ public class BookUseCase {
 
 
     private boolean bookIsValid(BookRequestDTO book) {
-        if(book.getTitle().isEmpty() && book.getTitle().isBlank() && book.getTitle().length() > 100){
+        if(book.getTitle() == null || book.getTitle().isEmpty() || book.getTitle().isBlank() || book.getTitle().length() > 100){
             return false;
-        }else if(book.getAuthor().isEmpty() && book.getAuthor().isBlank() && book.getAuthor().length() > 100){
+        }else if(book.getAuthor() == null || book.getAuthor().isEmpty() || book.getAuthor().isBlank() || book.getAuthor().length() > 100){
             return false;
-        }else if(book.getType().isEmpty() && book.getType().isBlank() && book.getType().length() > 100){
+        }else if( book.getType() == null || book.getType().isEmpty() || book.getType().isBlank() || book.getType().length() > 100){
             return false;
-        }else if(book.getCategory().isEmpty() && book.getCategory().isBlank() && book.getCategory().length() > 100){
+        }else if(book.getCategory() == null || book.getCategory().isEmpty() || book.getCategory().isBlank() || book.getCategory().length() > 100){
             return false;
         }else {
             return true;
@@ -61,14 +61,22 @@ public class BookUseCase {
         if (repository.existsById(id)) {
             var bookModel = bookMapper.bookDtoToModel(updatedBook);
             bookModel.setId(id);
+            if (!bookIsValid(updatedBook)) {
+                throw new BadBookException("Informações incompletas");
+            }
             return bookMapper.bookModelToDto(repository.save(bookModel));
         } else {
-            return null;
+            throw new NotFoundException("Livro não encontrado");
+            //return null;
         }
     }
 
     public void deleteBook(UUID id) {
-        repository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        }else {
+            throw new NotFoundException("Livro não encontrado");
+        }
     }
 
     public List<BookResponseDTO> getAllBooks() {
